@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wormfight — Online</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="brand">
+        <h1>Wormfight</h1>
+        <p class="tagline">Up to 20 players online</p>
+      </div>
+      <div id="connection-status" class="connection connecting">Connecting…</div>
+    </header>
+
+    <div id="lobby" class="lobby">
+      <div class="lobby-card">
+        <h2>Join the arena</h2>
+        <p class="lobby-desc">Enter a name, wait for players, then start the match. Ram others to score hits — last worm standing wins.</p>
+        <form id="join-form" class="join-form">
+          <input id="name-input" type="text" maxlength="16" placeholder="Your name" autocomplete="nickname" required>
+          <button type="submit" id="join-btn">Join game</button>
+        </form>
+        <p id="waiting-msg" class="waiting-msg hidden">You're in! Waiting for the match to start…</p>
+        <p id="join-error" class="join-error hidden"></p>
+
+        <div class="lobby-meta">
+          <span id="player-count">0 / 20 players</span>
+          <button id="start-btn" type="button" class="start-btn hidden" disabled>Start match</button>
+          <button id="rematch-btn" type="button" class="start-btn hidden" disabled>Play again</button>
+        </div>
+
+        <ul id="player-list" class="player-list"></ul>
+
+        <p class="hint">Controls: hold <strong>1</strong> turn left · <strong>2</strong> turn right</p>
+      </div>
+    </div>
+
+    <div id="game-screen" class="game-screen hidden">
+      <aside class="sidebar">
+        <h2>Players</h2>
+        <ul id="scoreboard" class="scoreboard"></ul>
+        <div id="you-panel" class="you-panel hidden">
+          <p class="you-label">You</p>
+          <p id="you-stats" class="you-stats"></p>
+        </div>
+      </aside>
+
+      <div class="main-panel">
+        <div class="board-wrap">
+          <canvas id="game" width="400" height="400" aria-label="Wormfight arena"></canvas>
+          <div id="overlay" class="overlay hidden">
+            <div class="overlay-card">
+              <h2 id="overlay-title"></h2>
+              <p id="overlay-message"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="controls">
+          <button id="turn-left" type="button" class="turn-btn" aria-label="Turn left (key 1)">
+            <span class="turn-icon">↺</span>
+            <span class="turn-label">1</span>
+          </button>
+          <button id="turn-right" type="button" class="turn-btn" aria-label="Turn right (key 2)">
+            <span class="turn-icon">↻</span>
+            <span class="turn-label">2</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="module" src="/client.js"></script>
+</body>
+</html>
