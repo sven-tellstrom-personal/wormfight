@@ -24,28 +24,41 @@ Open **http://localhost:3000** in multiple browser tabs or devices on the same n
 
 ## Deploy online
 
-Firebase Hosting serves static files only — **multiplayer requires the Node server** for WebSockets.
+Firebase Hosting serves static files only — **multiplayer requires Cloud Run** for WebSockets.
 
-### Option A: Cloud Run (recommended)
+### Prerequisites
 
-```bash
-gcloud run deploy wormfight \
-  --source . \
-  --region europe-west1 \
-  --allow-unauthenticated \
-  --port 8080
+1. [Install Google Cloud CLI](https://cloud.google.com/sdk/docs/install)
+2. Log in: `gcloud auth login`
+3. **Enable billing** on project `wormfight-2fac5`:
+   - [Firebase Console → Usage and billing](https://console.firebase.google.com/u/1/project/wormfight-2fac5/usage/details)
+   - Or [GCP Billing](https://console.cloud.google.com/billing/linkedaccount?project=wormfight-2fac5)
+
+Cloud Run has a generous free tier; a small game like this typically costs little or nothing.
+
+### Deploy to Cloud Run
+
+From the project folder:
+
+```powershell
+npm run deploy
 ```
 
-Or build the Docker image:
+Or use the script:
 
-```bash
-docker build -t wormfight .
-docker run -p 8080:8080 wormfight
+```powershell
+.\scripts\deploy-cloudrun.ps1
 ```
 
-### Option B: Any Node host
+Or manually:
 
-Set `PORT` and run `npm start`. Render, Railway, Fly.io, and VPS providers all work.
+```bash
+gcloud config set project wormfight-2fac5
+gcloud services enable run.googleapis.com cloudbuild.googleapis.com artifactregistry.googleapis.com
+gcloud run deploy wormfight --source . --region europe-west1 --allow-unauthenticated --port 8080
+```
+
+Google prints a URL like `https://wormfight-xxxxx-ew.a.run.app` — that's your live multiplayer game.
 
 ### Firebase Hosting (static only)
 
@@ -53,7 +66,7 @@ Set `PORT` and run `npm start`. Render, Railway, Fly.io, and VPS providers all w
 npx -y firebase-tools@latest deploy --only hosting
 ```
 
-This deploys the client UI to `https://wormfight-2fac5.web.app`, but **without a running server it cannot connect for multiplayer**. Use Cloud Run for the full game, or point a custom domain at your Node server.
+This updates `https://wormfight-2fac5.web.app` but **will not run multiplayer** without Cloud Run.
 
 ## Project structure
 
