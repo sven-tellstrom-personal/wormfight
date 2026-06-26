@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snake — 2 Players</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>Snake</h1>
+      <div class="stats">
+        <div class="stat stat-p1">
+          <span class="label">P1 Lives</span>
+          <span id="lives-p1" class="value">3</span>
+          <span class="sub-stat">Hits: <span id="hits-p1">0</span></span>
+        </div>
+        <div class="stat stat-p2">
+          <span class="label">P2 Lives</span>
+          <span id="lives-p2" class="value">3</span>
+          <span class="sub-stat">Hits: <span id="hits-p2">0</span></span>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="board-wrap">
+        <canvas id="game" width="400" height="400" aria-label="Snake game board"></canvas>
+        <div id="overlay" class="overlay hidden">
+          <div class="overlay-card">
+            <h2 id="overlay-title">Snake</h2>
+            <p id="overlay-message">Hold <strong>1</strong> to turn left, <strong>2</strong> to turn right.<br>Press Space to start.</p>
+            <button id="play-btn" type="button">Play</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="player-controls">
+        <p class="player-label player-label-p1">Player 1 — green</p>
+        <div class="controls">
+          <button id="p1-left" type="button" class="turn-btn turn-btn-p1" aria-label="P1 turn left (key 1)">
+            <span class="turn-icon">↺</span>
+            <span class="turn-label">1</span>
+          </button>
+          <button id="p1-right" type="button" class="turn-btn turn-btn-p1" aria-label="P1 turn right (key 2)">
+            <span class="turn-icon">↻</span>
+            <span class="turn-label">2</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="player-controls">
+        <p class="player-label player-label-p2">Player 2 — blue</p>
+        <div class="controls">
+          <button id="p2-left" type="button" class="turn-btn turn-btn-p2" aria-label="P2 turn left (key 3)">
+            <span class="turn-icon">↺</span>
+            <span class="turn-label">3</span>
+          </button>
+          <button id="p2-right" type="button" class="turn-btn turn-btn-p2" aria-label="P2 turn right (key 4)">
+            <span class="turn-icon">↻</span>
+            <span class="turn-label">4</span>
+          </button>
+        </div>
+      </div>
+
+      <p class="hint">P1: hold 1 &amp; 2 · P2: hold 3 &amp; 4 · Space to pause</p>
+    </main>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
